@@ -1,0 +1,32 @@
+§ Déclaration d'une variable simple
+programme
+
+DATA
+INTEGER: a | b | g;
+CHAR: nekk;
+CONST: ac="roh";
+STRING: mystring;
+VECTOR: nom1[5,10: INTEGER];
+END
+
+CODE
+mystring = "rohaf";
+nekk = 'a';
+
+IF (a > 67):
+    a = a *5;
+    ELSE :
+    A = 7+8;
+END    
+
+FOR(qim: 4: a)
+    b = c*3;
+END
+
+g = 0+4;
+b = 7 + 6;
+b = 89;
+END
+
+END
+

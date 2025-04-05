@@ -1,0 +1,46 @@
+§ Test program to demonstrate quadruple generation
+programme
+
+DATA
+§ Variable declarations
+INTEGER: x | y | z | result | counter | condition;
+FLOAT: f1 | f2;
+CHAR: ch;
+STRING: message;
+CONST: PI=3;
+
+END
+
+CODE
+§ Assignment operations
+x = 10;
+y = 20;
+z = 30;
+f1 = 314;
+f2 = 25;
+ch = 'A';
+message = "Hello, world!";
+counter = 5;
+
+§ Arithmetic operations
+result = x + y;
+result = result - z;
+result = result * 2;
+result = result / 5;
+
+§ Displaying only (removed READ statement)
+DISPLAY("The result is: ": result);
+
+§ Conditional structures
+IF (x > y):
+    result = x;
+ELSE:
+    result = y;
+END
+
+§ For loop
+condition = 7;
+
+
+END 
+END
