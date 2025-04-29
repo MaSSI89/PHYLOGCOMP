@@ -20,6 +20,15 @@ SymbolType currentType;
 // External declarations
 extern char* yytext;
 extern int tempCount;  // From quad.c
+
+// Function to check format specifier compatibility
+int isFormatCompatible(const char* format, SymbolType type) {
+    if (strcmp(format, "$") == 0) return type == TYPE_INTEGER;
+    if (strcmp(format, "%") == 0) return type == TYPE_FLOAT;
+    if (strcmp(format, "#") == 0) return type == TYPE_STRING;
+    if (strcmp(format, "&") == 0) return type == TYPE_CHAR;
+    return 0;
+}
 %}
 
 %start program
@@ -561,12 +570,17 @@ INSTRUCTION_LIRE:
     mc_read mc_paro mc_chaine mc_deuxp mc_adresse mc_ident mc_parf mc_pvg {
         SymbolEntry* entry = lookupSymbol(symtab, $6);
         if (!entry) {
-            fprintf(stderr, "--------------SEMANTIC Error: Undefined variable '%s' at line %d--------------\n", $6, line);
+            fprintf(stderr, "--------------SEMANTIC Error: Undefined variable '%s' at line %d column %d--------------\n", $6, line, column);
         } else {
-            entry->isInitialized = 1;
-            
-            // Generate quadruple for read operation
-            genReadQuad(quad_list, $3, $6);
+            // Check format specifier compatibility
+            if (!isFormatCompatible($3, entry->type)) {
+                fprintf(stderr, "--------------SEMANTIC Error: Incompatible variable type '%s' with format specifier '%s' at line %d column %d--------------\n", 
+                        $6, $3, line, column);
+            } else {
+                entry->isInitialized = 1;
+                // Generate quadruple for read operation
+                genReadQuad(quad_list, $3, $6);
+            }
         }
     }
 ;

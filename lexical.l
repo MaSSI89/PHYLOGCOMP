@@ -100,6 +100,7 @@ commentaire §[^\n]*
 
 "OR" { count_chars(); return mc_or; }
 "AND" { count_chars(); return mc_and; }
+
 ">" { count_chars(); return mc_sup; }
 "<" { count_chars(); return mc_inf; }
 ">=" { count_chars(); return mc_supeg; }

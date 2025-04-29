@@ -105,7 +105,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 33 "syntax.y"
+#line 42 "syntax.y"
 
     int int_val;
     char char_val;

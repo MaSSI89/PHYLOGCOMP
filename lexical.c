@@ -985,57 +985,57 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 103 "lexical.l"
+#line 104 "lexical.l"
 { count_chars(); return mc_sup; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 104 "lexical.l"
+#line 105 "lexical.l"
 { count_chars(); return mc_inf; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 105 "lexical.l"
+#line 106 "lexical.l"
 { count_chars(); return mc_supeg; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 106 "lexical.l"
+#line 107 "lexical.l"
 { count_chars(); return mc_infeg; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 107 "lexical.l"
+#line 108 "lexical.l"
 { count_chars(); return mc_egal; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 108 "lexical.l"
+#line 109 "lexical.l"
 { count_chars(); return mc_affectation; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 109 "lexical.l"
+#line 110 "lexical.l"
 { count_chars(); return mc_diff; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 110 "lexical.l"
+#line 111 "lexical.l"
 { count_chars(); return mc_plus; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 111 "lexical.l"
+#line 112 "lexical.l"
 { count_chars(); return mc_moins; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 112 "lexical.l"
+#line 113 "lexical.l"
 { count_chars(); return mc_mult; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 113 "lexical.l"
+#line 114 "lexical.l"
 { 
     count_chars(); 
     // printf("mot cle /\n");
@@ -1044,37 +1044,37 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 118 "lexical.l"
+#line 119 "lexical.l"
 { count_chars(); return mc_crocheto; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 119 "lexical.l"
+#line 120 "lexical.l"
 { count_chars(); return mc_crochetf; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 120 "lexical.l"
+#line 121 "lexical.l"
 { count_chars(); return mc_separateur; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 121 "lexical.l"
+#line 122 "lexical.l"
 { count_chars(); return mc_paro; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 122 "lexical.l"
+#line 123 "lexical.l"
 { count_chars(); return mc_parf; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 124 "lexical.l"
+#line 125 "lexical.l"
 { count_chars(); return mc_adresse; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 126 "lexical.l"
+#line 127 "lexical.l"
 { 
     count_chars(); 
     /* Skip whitespace */
@@ -1083,12 +1083,12 @@ YY_RULE_SETUP
 case 46:
 /* rule 46 can match eol */
 YY_RULE_SETUP
-#line 131 "lexical.l"
+#line 132 "lexical.l"
 {line++; column=1;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 132 "lexical.l"
+#line 133 "lexical.l"
 { 
     count_chars(); 
     // fprintf(stderr, "Lexical error: Unrecognized character '%c' at line %d, column %d\n", 
@@ -1097,7 +1097,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 138 "lexical.l"
+#line 139 "lexical.l"
 {
     count_chars();
     lexical_error("Negative integer must be wrapped within parentheses");
@@ -1105,7 +1105,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 143 "lexical.l"
+#line 144 "lexical.l"
 ECHO;
 	YY_BREAK
 #line 1112 "lexical.c"
@@ -2113,7 +2113,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 143 "lexical.l"
+#line 144 "lexical.l"
 
  
 void count_chars(void) {

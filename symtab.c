@@ -367,6 +367,6 @@ int areTypesCompatible(SymbolType type1, SymbolType type2, char operation) {
         return (operation == '+' || operation == '-' || operation == '*');
     }
     
-    // Numeric and character types are generally compatible
+    
     return 1;
 } 

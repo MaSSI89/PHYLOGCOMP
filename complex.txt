@@ -1,5 +1,5 @@
 § Test program to demonstrate quadruple generation
-programme
+Programme
 
 DATA
 § Variable declarations
@@ -17,6 +17,8 @@ x = 10;
 y = 20;
 z = 30;
 f1 = 314;
+READ ("%":@x);
+
 f2 = 25;
 ch = 'A';
 message = "Hello, world!";
