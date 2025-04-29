@@ -1,0 +1,38 @@
+§ Test program to demonstrate effective code optimization
+Programme
+
+DATA
+§ Variable declarations
+INTEGER: a | b | c | result | temp | unused;
+FLOAT: f1 | f2;
+CONST: PI=3;
+
+END
+
+CODE
+§ Code with redundancies and unused variables
+a = 10;
+b = 20;
+
+§ Common subexpression that should be eliminated
+temp = a + b;
+result = a + b;
+
+§ Dead code elimination (unused variable)
+unused = 100;
+
+§ Algebraic simplifications
+c = a * 1;        § Should optimize to c = a
+result = result + 0;  § Should optimize to no-op 
+f1 = b * 2;       § Should optimize to f1 = b + b
+f2 = c / 1;       § Should optimize to f2 = c
+
+§ Copy propagation
+b = a;
+c = b;            § Should become c = a
+
+§ Final result display
+DISPLAY("The result is: ": result);
+
+END 
+END 

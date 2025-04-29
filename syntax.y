@@ -4,6 +4,7 @@
 #include <string.h>
 #include "symtab.h"
 #include "quad.h"
+#include "optimizer.h"  // Include the optimizer header
 
 int yylex();
 int line = 1;
@@ -719,6 +720,17 @@ int main() {
     int result = yyparse();
     if (result == 0) {
         printf("Compilation successful!\n");
+        
+        // Print original quadruples
+        printf("\n--- Original Quadruples ---\n");
+        printQuadList(quad_list);
+        
+        // Optimize the code
+        printf("\n--- Optimizing Code ---\n");
+        optimize_code(quad_list);
+        
+        // Print optimized quadruples
+        print_optimized_code(quad_list);
     }
     
     // Free memory
