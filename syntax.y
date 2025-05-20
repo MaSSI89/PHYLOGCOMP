@@ -5,6 +5,7 @@
 #include "symtab.h"
 #include "quad.h"
 #include "optimizer.h"  // Include the optimizer header
+#include "codegen.h"    // Include the code generator header
 
 int yylex();
 int line = 1;
@@ -731,6 +732,23 @@ int main() {
         
         // Print optimized quadruples
         print_optimized_code(quad_list);
+        
+        // Generate assembly code
+        printf("\n--- Generating Assembly Code ---\n");
+        
+        // Initialize code generator with default configuration
+        CodeGenConfig config;
+        config.arch = ARCH_X86;
+        config.format = FORMAT_GAS;
+        config.outputFilename = "output.s";
+        config.optimizationLevel = 1;
+        config.debugInfo = 0;
+        
+        initCodeGen(&config);
+        generateAssemblyCode(quad_list, symtab);
+        freeCodeGen();
+        
+        printf("Assembly code generation complete.\n");
     }
     
     // Free memory

@@ -75,6 +75,7 @@
 #include "symtab.h"
 #include "quad.h"
 #include "optimizer.h"  // Include the optimizer header
+#include "codegen.h"    // Include the code generator header
 
 int yylex();
 int line = 1;
@@ -101,7 +102,7 @@ int isFormatCompatible(const char* format, SymbolType type) {
     return 0;
 }
 
-#line 105 "syntax.c"
+#line 106 "syntax.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -587,12 +588,12 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    67,    67,    75,    77,    81,    84,    86,    90,    91,
-      92,    96,    97,    98,    99,   103,   108,   116,   149,   165,
-     170,   175,   180,   188,   191,   193,   197,   198,   199,   200,
-     201,   202,   206,   271,   307,   325,   343,   368,   378,   388,
-     398,   408,   424,   440,   468,   496,   499,   548,   553,   558,
-     563,   571,   590,   604,   608,   616,   636,   649
+       0,    68,    68,    76,    78,    82,    85,    87,    91,    92,
+      93,    97,    98,    99,   100,   104,   109,   117,   150,   166,
+     171,   176,   181,   189,   192,   194,   198,   199,   200,   201,
+     202,   203,   207,   272,   308,   326,   344,   369,   379,   389,
+     399,   409,   425,   441,   469,   497,   500,   549,   554,   559,
+     564,   572,   591,   605,   609,   617,   637,   650
 };
 #endif
 
@@ -1248,62 +1249,62 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: comment_list mc_ident DATA_SECTION CODE_SECTION mc_endp  */
-#line 67 "syntax.y"
+#line 68 "syntax.y"
                                                             {
         printf("Compilation successful!\n");
         printSymbolTable(symtab);
         printQuadList(quad_list);
         YYACCEPT;
     }
-#line 1259 "syntax.c"
+#line 1260 "syntax.c"
     break;
 
   case 11: /* VAR_TYPE: mc_integ  */
-#line 96 "syntax.y"
+#line 97 "syntax.y"
              { currentType = TYPE_INTEGER; }
-#line 1265 "syntax.c"
+#line 1266 "syntax.c"
     break;
 
   case 12: /* VAR_TYPE: mc_float  */
-#line 97 "syntax.y"
+#line 98 "syntax.y"
                { currentType = TYPE_FLOAT; }
-#line 1271 "syntax.c"
+#line 1272 "syntax.c"
     break;
 
   case 13: /* VAR_TYPE: mc_char  */
-#line 98 "syntax.y"
+#line 99 "syntax.y"
               { currentType = TYPE_CHAR; }
-#line 1277 "syntax.c"
+#line 1278 "syntax.c"
     break;
 
   case 14: /* VAR_TYPE: mc_string  */
-#line 99 "syntax.y"
+#line 100 "syntax.y"
                 { currentType = TYPE_STRING; }
-#line 1283 "syntax.c"
+#line 1284 "syntax.c"
     break;
 
   case 15: /* LISTE_VAR: mc_ident  */
-#line 103 "syntax.y"
+#line 104 "syntax.y"
              {
         if (!insertSymbol(symtab, (yyvsp[0].str_val), currentType, line, column)) {
             // Error already reported by insertSymbol
         }
     }
-#line 1293 "syntax.c"
+#line 1294 "syntax.c"
     break;
 
   case 16: /* LISTE_VAR: mc_ident mc_separateur LISTE_VAR  */
-#line 108 "syntax.y"
+#line 109 "syntax.y"
                                        {
         if (!insertSymbol(symtab, (yyvsp[-2].str_val), currentType, line, column)) {
             // Error already reported by insertSymbol
         }
     }
-#line 1303 "syntax.c"
+#line 1304 "syntax.c"
     break;
 
   case 17: /* DEC_CONST: mc_const mc_deuxp mc_ident mc_affectation VALEURS mc_pvg  */
-#line 116 "syntax.y"
+#line 117 "syntax.y"
                                                              {
         if (!insertSymbol(symtab, (yyvsp[-3].str_val), (yyvsp[-1].expr_val).type, line, column)) {
             // Error already reported by insertSymbol
@@ -1334,11 +1335,11 @@ yyreduce:
             }
         }
     }
-#line 1338 "syntax.c"
+#line 1339 "syntax.c"
     break;
 
   case 18: /* DEC_VECTOR: mc_vector mc_deuxp mc_ident mc_crocheto INT_CONST mc_vg INT_CONST mc_deuxp VAR_TYPE mc_crochetf mc_pvg  */
-#line 149 "syntax.y"
+#line 150 "syntax.y"
                                                                                                            {
         if (!insertSymbol(symtab, (yyvsp[-8].str_val), TYPE_VECTOR, line, column)) {
             // Error already reported by insertSymbol
@@ -1352,51 +1353,51 @@ yyreduce:
             }
         }
     }
-#line 1356 "syntax.c"
+#line 1357 "syntax.c"
     break;
 
   case 19: /* VALEURS: mc_charactere  */
-#line 165 "syntax.y"
+#line 166 "syntax.y"
                   {
         (yyval.expr_val).type = TYPE_CHAR;
         (yyval.expr_val).value.charValue = (yyvsp[0].char_val);
         sprintf((yyval.expr_val).valueStr, "'%c'", (yyvsp[0].char_val));
     }
-#line 1366 "syntax.c"
+#line 1367 "syntax.c"
     break;
 
   case 20: /* VALEURS: mc_chaine  */
-#line 170 "syntax.y"
+#line 171 "syntax.y"
                 {
         (yyval.expr_val).type = TYPE_STRING;
         (yyval.expr_val).value.stringValue = (yyvsp[0].str_val);
         sprintf((yyval.expr_val).valueStr, "%s", (yyvsp[0].str_val));
     }
-#line 1376 "syntax.c"
+#line 1377 "syntax.c"
     break;
 
   case 21: /* VALEURS: INT_CONST  */
-#line 175 "syntax.y"
+#line 176 "syntax.y"
                 {
         (yyval.expr_val).type = TYPE_INTEGER;
         (yyval.expr_val).value.intValue = (yyvsp[0].int_val);
         sprintf((yyval.expr_val).valueStr, "%d", (yyvsp[0].int_val));
     }
-#line 1386 "syntax.c"
+#line 1387 "syntax.c"
     break;
 
   case 22: /* VALEURS: mc_cst  */
-#line 180 "syntax.y"
+#line 181 "syntax.y"
              {
         (yyval.expr_val).type = TYPE_INTEGER;
         (yyval.expr_val).value.intValue = (yyvsp[0].int_val);
         sprintf((yyval.expr_val).valueStr, "%d", (yyvsp[0].int_val));
     }
-#line 1396 "syntax.c"
+#line 1397 "syntax.c"
     break;
 
   case 32: /* INSTRUCTION_AFFECTATION: mc_ident mc_affectation EXPRESSION mc_pvg  */
-#line 206 "syntax.y"
+#line 207 "syntax.y"
                                               {
         SymbolEntry* entry = lookupSymbol(symtab, (yyvsp[-3].str_val));
         if (!entry) {
@@ -1459,11 +1460,11 @@ yyreduce:
             }
         }
     }
-#line 1463 "syntax.c"
+#line 1464 "syntax.c"
     break;
 
   case 33: /* EXPRESSION: EXPRESSION mc_plus EXPRESSION  */
-#line 271 "syntax.y"
+#line 272 "syntax.y"
                                   {
         if ((yyvsp[-2].expr_val).type == TYPE_STRING || (yyvsp[0].expr_val).type == TYPE_STRING) {
             // String concatenation
@@ -1500,11 +1501,11 @@ yyreduce:
             free(temp);
         }
     }
-#line 1504 "syntax.c"
+#line 1505 "syntax.c"
     break;
 
   case 34: /* EXPRESSION: EXPRESSION mc_moins EXPRESSION  */
-#line 307 "syntax.y"
+#line 308 "syntax.y"
                                      {
         if ((yyvsp[-2].expr_val).type == TYPE_FLOAT || (yyvsp[0].expr_val).type == TYPE_FLOAT) {
             // Float subtraction
@@ -1523,11 +1524,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1527 "syntax.c"
+#line 1528 "syntax.c"
     break;
 
   case 35: /* EXPRESSION: EXPRESSION mc_mult EXPRESSION  */
-#line 325 "syntax.y"
+#line 326 "syntax.y"
                                     {
         if ((yyvsp[-2].expr_val).type == TYPE_FLOAT || (yyvsp[0].expr_val).type == TYPE_FLOAT) {
             // Float multiplication
@@ -1546,11 +1547,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1550 "syntax.c"
+#line 1551 "syntax.c"
     break;
 
   case 36: /* EXPRESSION: EXPRESSION mc_div EXPRESSION  */
-#line 343 "syntax.y"
+#line 344 "syntax.y"
                                    {
         // Check for division by zero
         if (((yyvsp[0].expr_val).type == TYPE_INTEGER && (yyvsp[0].expr_val).value.intValue == 0) ||
@@ -1576,11 +1577,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1580 "syntax.c"
+#line 1581 "syntax.c"
     break;
 
   case 37: /* EXPRESSION: EXPRESSION mc_sup EXPRESSION  */
-#line 368 "syntax.y"
+#line 369 "syntax.y"
                                    {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         (yyval.expr_val).value.intValue = (convertToFloat((yyvsp[-2].expr_val)) > convertToFloat((yyvsp[0].expr_val))) ? 1 : 0;
@@ -1591,11 +1592,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1595 "syntax.c"
+#line 1596 "syntax.c"
     break;
 
   case 38: /* EXPRESSION: EXPRESSION mc_inf EXPRESSION  */
-#line 378 "syntax.y"
+#line 379 "syntax.y"
                                    {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         (yyval.expr_val).value.intValue = (convertToFloat((yyvsp[-2].expr_val)) < convertToFloat((yyvsp[0].expr_val))) ? 1 : 0;
@@ -1606,11 +1607,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1610 "syntax.c"
+#line 1611 "syntax.c"
     break;
 
   case 39: /* EXPRESSION: EXPRESSION mc_supeg EXPRESSION  */
-#line 388 "syntax.y"
+#line 389 "syntax.y"
                                      {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         (yyval.expr_val).value.intValue = (convertToFloat((yyvsp[-2].expr_val)) >= convertToFloat((yyvsp[0].expr_val))) ? 1 : 0;
@@ -1621,11 +1622,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1625 "syntax.c"
+#line 1626 "syntax.c"
     break;
 
   case 40: /* EXPRESSION: EXPRESSION mc_infeg EXPRESSION  */
-#line 398 "syntax.y"
+#line 399 "syntax.y"
                                      {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         (yyval.expr_val).value.intValue = (convertToFloat((yyvsp[-2].expr_val)) <= convertToFloat((yyvsp[0].expr_val))) ? 1 : 0;
@@ -1636,11 +1637,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1640 "syntax.c"
+#line 1641 "syntax.c"
     break;
 
   case 41: /* EXPRESSION: EXPRESSION mc_egal EXPRESSION  */
-#line 408 "syntax.y"
+#line 409 "syntax.y"
                                     {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         
@@ -1657,11 +1658,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1661 "syntax.c"
+#line 1662 "syntax.c"
     break;
 
   case 42: /* EXPRESSION: EXPRESSION mc_diff EXPRESSION  */
-#line 424 "syntax.y"
+#line 425 "syntax.y"
                                     {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         
@@ -1678,11 +1679,11 @@ yyreduce:
         strcpy((yyval.expr_val).valueStr, temp);
         free(temp);
     }
-#line 1682 "syntax.c"
+#line 1683 "syntax.c"
     break;
 
   case 43: /* EXPRESSION: EXPRESSION mc_and EXPRESSION  */
-#line 440 "syntax.y"
+#line 441 "syntax.y"
                                    {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         (yyval.expr_val).value.intValue = (convertToInt((yyvsp[-2].expr_val)) && convertToInt((yyvsp[0].expr_val))) ? 1 : 0;
@@ -1711,11 +1712,11 @@ yyreduce:
         free(temp2);
         free(resultTemp);
     }
-#line 1715 "syntax.c"
+#line 1716 "syntax.c"
     break;
 
   case 44: /* EXPRESSION: EXPRESSION mc_or EXPRESSION  */
-#line 468 "syntax.y"
+#line 469 "syntax.y"
                                   {
         (yyval.expr_val).type = TYPE_INTEGER;  // Boolean result (0 or 1)
         (yyval.expr_val).value.intValue = (convertToInt((yyvsp[-2].expr_val)) || convertToInt((yyvsp[0].expr_val))) ? 1 : 0;
@@ -1744,19 +1745,19 @@ yyreduce:
         free(temp2);
         free(resultTemp);
     }
-#line 1748 "syntax.c"
+#line 1749 "syntax.c"
     break;
 
   case 45: /* EXPRESSION: mc_paro EXPRESSION mc_parf  */
-#line 496 "syntax.y"
+#line 497 "syntax.y"
                                  {
         (yyval.expr_val) = (yyvsp[-1].expr_val);  // Just pass the expression value up
     }
-#line 1756 "syntax.c"
+#line 1757 "syntax.c"
     break;
 
   case 46: /* EXPRESSION: mc_ident  */
-#line 499 "syntax.y"
+#line 500 "syntax.y"
                {
         SymbolEntry* entry = lookupSymbol(symtab, (yyvsp[0].str_val));
         if (!entry) {
@@ -1806,51 +1807,51 @@ yyreduce:
             strcpy((yyval.expr_val).valueStr, (yyvsp[0].str_val));
         }
     }
-#line 1810 "syntax.c"
+#line 1811 "syntax.c"
     break;
 
   case 47: /* EXPRESSION: INT_CONST  */
-#line 548 "syntax.y"
+#line 549 "syntax.y"
                 {
         (yyval.expr_val).type = TYPE_INTEGER;
         (yyval.expr_val).value.intValue = (yyvsp[0].int_val);
         sprintf((yyval.expr_val).valueStr, "%d", (yyvsp[0].int_val));
     }
-#line 1820 "syntax.c"
+#line 1821 "syntax.c"
     break;
 
   case 48: /* EXPRESSION: mc_charactere  */
-#line 553 "syntax.y"
+#line 554 "syntax.y"
                     {
         (yyval.expr_val).type = TYPE_CHAR;
         (yyval.expr_val).value.charValue = (yyvsp[0].char_val);
         sprintf((yyval.expr_val).valueStr, "'%c'", (yyvsp[0].char_val));
     }
-#line 1830 "syntax.c"
+#line 1831 "syntax.c"
     break;
 
   case 49: /* EXPRESSION: mc_chaine  */
-#line 558 "syntax.y"
+#line 559 "syntax.y"
                 {
         (yyval.expr_val).type = TYPE_STRING;
         (yyval.expr_val).value.stringValue = (yyvsp[0].str_val);
         sprintf((yyval.expr_val).valueStr, "%s", (yyvsp[0].str_val));
     }
-#line 1840 "syntax.c"
+#line 1841 "syntax.c"
     break;
 
   case 50: /* EXPRESSION: mc_cst  */
-#line 563 "syntax.y"
+#line 564 "syntax.y"
              {
         (yyval.expr_val).type = TYPE_INTEGER;
         (yyval.expr_val).value.intValue = (yyvsp[0].int_val);
         sprintf((yyval.expr_val).valueStr, "%d", (yyvsp[0].int_val));
     }
-#line 1850 "syntax.c"
+#line 1851 "syntax.c"
     break;
 
   case 51: /* INSTRUCTION_LIRE: mc_read mc_paro mc_chaine mc_deuxp mc_adresse mc_ident mc_parf mc_pvg  */
-#line 571 "syntax.y"
+#line 572 "syntax.y"
                                                                           {
         SymbolEntry* entry = lookupSymbol(symtab, (yyvsp[-2].str_val));
         if (!entry) {
@@ -1867,11 +1868,11 @@ yyreduce:
             }
         }
     }
-#line 1871 "syntax.c"
+#line 1872 "syntax.c"
     break;
 
   case 52: /* INSTRUCTION_ECRIRE: mc_display mc_paro mc_chaine mc_deuxp mc_ident mc_parf mc_pvg  */
-#line 590 "syntax.y"
+#line 591 "syntax.y"
                                                                   {
         SymbolEntry* entry = lookupSymbol(symtab, (yyvsp[-2].str_val));
         if (!entry) {
@@ -1883,11 +1884,11 @@ yyreduce:
             genWriteQuad(quad_list, (yyvsp[-4].str_val), (yyvsp[-2].str_val));
         }
     }
-#line 1887 "syntax.c"
+#line 1888 "syntax.c"
     break;
 
   case 54: /* STRUCTURE_CONDITIONELLE: mc_if mc_paro CONDITION mc_parf mc_deuxp INSTRUCTIONS mc_endp  */
-#line 608 "syntax.y"
+#line 609 "syntax.y"
                                                                   {
         // Single if statement (no else)
         int ifCondLabel = genLabel(quad_list);
@@ -1896,11 +1897,11 @@ yyreduce:
             addQuad(quad_list, QUAD_IF_FALSE, (yyvsp[-4].expr_val).valueStr, NULL, "");
         }
     }
-#line 1900 "syntax.c"
+#line 1901 "syntax.c"
     break;
 
   case 55: /* STRUCTURE_CONDITIONELLE: mc_if mc_paro CONDITION mc_parf mc_deuxp INSTRUCTIONS mc_else mc_deuxp INSTRUCTIONS mc_endp  */
-#line 616 "syntax.y"
+#line 617 "syntax.y"
                                                                                                   {
         // If-else statement
         int elseLabel = genLabel(quad_list);
@@ -1918,11 +1919,11 @@ yyreduce:
             genLabel(quad_list);
         }
     }
-#line 1922 "syntax.c"
+#line 1923 "syntax.c"
     break;
 
   case 56: /* CONDITION: EXPRESSION  */
-#line 636 "syntax.y"
+#line 637 "syntax.y"
                {
         (yyval.expr_val) = (yyvsp[0].expr_val);  // Just pass the expression value up
         
@@ -1933,11 +1934,11 @@ yyreduce:
             sprintf((yyval.expr_val).valueStr, "%d", (yyval.expr_val).value.intValue);
         }
     }
-#line 1937 "syntax.c"
+#line 1938 "syntax.c"
     break;
 
   case 57: /* INSTRUCTION_BOUCLE: mc_for mc_paro mc_ident mc_deuxp INT_CONST mc_deuxp mc_ident mc_parf INSTRUCTION mc_endp  */
-#line 649 "syntax.y"
+#line 650 "syntax.y"
                                                                                              {
         // For loop 
         // First identifier is the loop counter
@@ -1992,11 +1993,11 @@ yyreduce:
             }
         }
     }
-#line 1996 "syntax.c"
+#line 1997 "syntax.c"
     break;
 
 
-#line 2000 "syntax.c"
+#line 2001 "syntax.c"
 
       default: break;
     }
@@ -2189,7 +2190,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 705 "syntax.y"
+#line 706 "syntax.y"
 
 
 void yyerror(const char *s) {
@@ -2219,6 +2220,23 @@ int main() {
         
         // Print optimized quadruples
         print_optimized_code(quad_list);
+        
+        // Generate assembly code
+        printf("\n--- Generating Assembly Code ---\n");
+        
+        // Initialize code generator with default configuration
+        CodeGenConfig config;
+        config.arch = ARCH_X86;
+        config.format = FORMAT_GAS;
+        config.outputFilename = "output.s";
+        config.optimizationLevel = 1;
+        config.debugInfo = 0;
+        
+        initCodeGen(&config);
+        generateAssemblyCode(quad_list, symtab);
+        freeCodeGen();
+        
+        printf("Assembly code generation complete.\n");
     }
     
     // Free memory
